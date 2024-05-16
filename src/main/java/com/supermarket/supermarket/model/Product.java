@@ -1,15 +1,18 @@
 package com.supermarket.supermarket.model;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import java.time.LocalDateTime;
+import jakarta.persistence.*;
+import lombok.Data;
 
-@Getter
-@Setter
-@Builder
+@Data
+@Entity
+@Table(name = "products")
 public class Product {
+    @Id
+    @GeneratedValue
+    private Long id;
+    @Column(unique = true)
     private String name;
     private int price;
-    private String expire_date;
-
+    private LocalDateTime expire_date;
 }
