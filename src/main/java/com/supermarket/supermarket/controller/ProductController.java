@@ -1,0 +1,44 @@
+package com.supermarket.supermarket.controller;
+
+import com.supermarket.supermarket.model.Product;
+import com.supermarket.supermarket.service.ProductService;
+import org.apache.catalina.Service;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/v1/products")
+public class ProductController {
+    private final ProductService productService;
+
+    public ProductController(final ProductService productService) {
+        this.productService = productService;
+    }
+    //todo
+    @GetMapping
+    public List<Product> findAllProduct(){
+        return productService.findAllProduct();
+    }
+
+    @PostMapping("save_product")
+    public Product saveProduct(@RequestBody Product product){
+        return productService.saveProduct(product);
+    }
+    // /api/v1/products/pomidor
+    @GetMapping("/{name}")
+    public Product findByName(@PathVariable String name){
+        return productService.findByName(name);
+    }
+
+    @PutMapping("update_product")
+    public Product updateProduct(Product product){
+        return productService.updateProduct(product);
+    }
+
+    @DeleteMapping("delete_product/{name}")
+    public void deleteProduct(@PathVariable String name){
+        productService.deleteStudent(name);
+    }
+
+}
