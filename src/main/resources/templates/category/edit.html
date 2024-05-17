@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Category</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+    <div class="row">
+        <!-- Back Button -->
+        <div class="col-md-12 mb-3">
+            <a href="/categories" class="btn btn-secondary">Back</a>
+        </div>
+    </div>
+    <div class="row">
+        <!-- Edit Category Form -->
+        <div class="col-md-6 offset-md-3">
+            <h2>Edit Category</h2>
+            <form th:action="@{/categories/update/{id}(id=${categoryId})}" th:object="${category}" method="post" id="editCategoryForm">
+                <div class="mb-3">
+                    <label for="categoryName" class="form-label">Category Name</label>
+                    <input type="text" class="form-control" id="categoryName" th:field="*{name}" required />
+                    <div class="text-danger" th:if="${errorMessage}" th:text="${errorMessage}"></div>
+                </div>
+                <button type="submit" class="btn btn-success" id="updateButton" disabled>Update Category</button>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Bootstrap JS (optional) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Custom JS -->
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const nameInput = document.getElementById("categoryName");
+        const updateButton = document.getElementById("updateButton");
+
+        nameInput.addEventListener("input", function() {
+            if (nameInput.value.trim() === "") {
+                updateButton.disabled = true;
+            } else {
+                updateButton.disabled = false;
+            }
+        });
+
+        // Initial check to disable button on page load if the input is empty
+        if (nameInput.value.trim() === "") {
+            updateButton.disabled = true;
+        }
+    });
+</script>
+</body>
+</html>
