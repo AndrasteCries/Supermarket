@@ -2,6 +2,7 @@ package com.supermarket.supermarket.model;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -36,5 +37,8 @@ public class Product {
     @ManyToOne
     @JoinColumn(name = "section_id", nullable = false)
     private Section section;
+
+    @OneToMany(mappedBy = "product")
+    private List<ProductInput> productInputs;
 
 }
