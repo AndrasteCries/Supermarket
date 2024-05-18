@@ -3,6 +3,7 @@ package com.supermarket.supermarket.service.impl;
 import com.supermarket.supermarket.model.*;
 import com.supermarket.supermarket.repository.*;
 import com.supermarket.supermarket.service.ProductInputSevice;
+import com.supermarket.supermarket.service.WarehouseService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -16,12 +17,16 @@ public class ProductInputSeviceImpl implements ProductInputSevice {
     private final SupplierRepository supplierRepository;
     private final ProductRepository productRepository;
     private final ProductInputRepository productInputRepository;
+    private final WarehouseService warehouseService;
 
     public ProductInputSeviceImpl(ProductInputRepository productInputRepository,
-                                  SupplierRepository supplierRepository, ProductRepository productRepository) {
+                                  SupplierRepository supplierRepository,
+                                  ProductRepository productRepository,
+                                  WarehouseService warehouseService) {
         this.supplierRepository = supplierRepository;
         this.productRepository = productRepository;
         this.productInputRepository = productInputRepository;
+        this.warehouseService = warehouseService;
     }
 
     @Override
@@ -30,6 +35,12 @@ public class ProductInputSeviceImpl implements ProductInputSevice {
                 .orElseThrow(() -> new RuntimeException("Product not found"));
         supplierRepository.findById(productInput.getSupplier().getId())
                 .orElseThrow(() -> new RuntimeException("Supplier not found"));
+
+        warehouseService.addProductToWarehouse(
+                productInput.getProduct(),
+                productInput.getDate(),
+                productInput.getCount()
+        );
 
         return productInputRepository.save(productInput);
     }

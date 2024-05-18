@@ -19,7 +19,7 @@ public class ProductRequest {
     private BigDecimal price;
 
     @NotNull
-    private int expirationDate;
+    private BigDecimal expirationDate;
 
     @NotNull
     private Long category;

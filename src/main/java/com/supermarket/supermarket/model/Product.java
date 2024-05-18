@@ -24,7 +24,7 @@ public class Product {
     private BigDecimal price;
 
     @Column(name = "expiration_date", nullable = false)
-    private int expirationDate;
+    private BigDecimal expirationDate;
 
     @ManyToOne
     @JoinColumn(name = "category_id", nullable = false)

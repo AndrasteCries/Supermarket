@@ -1,11 +1,9 @@
 package com.supermarket.supermarket.service;
 
-import com.supermarket.supermarket.dto.ProductInputRequest;
 import com.supermarket.supermarket.model.*;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
