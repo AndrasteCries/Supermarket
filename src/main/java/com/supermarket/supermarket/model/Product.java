@@ -1,5 +1,6 @@
 package com.supermarket.supermarket.model;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import jakarta.persistence.*;
@@ -11,7 +12,7 @@ import lombok.Data;
 public class Product {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
@@ -19,8 +20,21 @@ public class Product {
     private String name;
 
     @Column(name = "price", nullable = false)
-    private int price;
+    private BigDecimal price;
 
     @Column(name = "expiration_date", nullable = false)
     private LocalDateTime expirationDate;
+
+    @ManyToOne
+    @JoinColumn(name = "category_id", nullable = false)
+    private ProductCategory category;
+
+    @ManyToOne
+    @JoinColumn(name = "manufacturer_id", nullable = false)
+    private Manufacturer manufacturer;
+
+    @ManyToOne
+    @JoinColumn(name = "section_id", nullable = false)
+    private Section section;
+
 }
