@@ -62,6 +62,7 @@ public class ProductController {
         model.addAttribute("categories", categories);
         model.addAttribute("manufacturers", manufacturers);
         model.addAttribute("sections", sections);
+        model.addAttribute("productId", id);
 
         model.addAttribute("product", productRequest);
         return "product/edit";

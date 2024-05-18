@@ -26,15 +26,41 @@
         <!-- Edit Product Form -->
         <div class="col-md-6 offset-md-3">
             <h2>Edit Product</h2>
-            <form th:action="@{/products/update/{id}(id=${productId})}" th:object="${product}"
+            <form th:action="@{'/products/update/' + ${productId}}" th:object="${product}"
                   method="post" id="editProductForm">
                 <div class="mb-3">
                     <label for="productName" class="form-label">Product Name</label>
-                    <input type="text" class="form-control" id="productName" th:field="*{name}" required/>
-                    <div class="text-danger" th:if="${errorMessage}" th:text="${errorMessage}"></div>
+                    <input type="text" class="form-control" id="productName" th:field="*{name}" />
                 </div>
-                <!-- Add other input fields for category, manufacturer, section -->
-                <!-- Add dropdowns for category, manufacturer, section -->
+                <div class="mb-3">
+                    <label for="productPrice" class="form-label">Price</label>
+                    <input type="number" class="form-control" id="productPrice" th:field="*{price}" step="any" required/>
+                </div>
+                <div class="mb-3">
+                    <label for="productExpirationDate" class="form-label">Expiration Date</label>
+                    <input type="number" class="form-control" id="productExpirationDate" th:field="*{expirationDate}" required/>
+                </div>
+                <!-- Dropdown for selecting category -->
+                <div class="mb-3">
+                    <label for="productCategory" class="form-label">Category</label>
+                    <select class="form-select" id="productCategory" th:field="*{category}" required>
+                        <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
+                    </select>
+                </div>
+                <!-- Dropdown for selecting manufacturer -->
+                <div class="mb-3">
+                    <label for="productManufacturer" class="form-label">Manufacturer</label>
+                    <select class="form-select " id="productManufacturer" th:field="*{manufacturer}" required>
+                        <option th:each="manufacturer : ${manufacturers}" th:value="${manufacturer.id}" th:text="${manufacturer.name}"></option>
+                    </select>
+                </div>
+                <!-- Dropdown for selecting section -->
+                <div class="mb-3">
+                    <label for="productSection" class="form-label">Section</label>
+                    <select class="form-select" id="productSection" th:field="*{section}" required>
+                        <option th:each="section : ${sections}" th:value="${section.id}" th:text="${section.name}"></option>
+                    </select>
+                </div>
                 <button type="submit" class="btn btn-success" id="updateButton" disabled>Update Product</button>
             </form>
         </div>
