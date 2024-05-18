@@ -1,9 +1,19 @@
+# ErrorPage config
+server:
+  error:
+    whitelabel:
+      enabled: false
+    path: /error
+
+# DataSource config
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/supermarket_db
     username: postgres
     password: root
     driver-class-name: org.postgresql.Driver
+
+  # JPA config
   jpa:
     hibernate:
       ddl-auto: create-drop
@@ -13,6 +23,8 @@ spring:
     properties:
       hibernate:
         format_sql: true
+
+  # Thymeleaf config
   thymeleaf:
     prefix: classpath:/templates/
     suffix: .html
