@@ -50,18 +50,15 @@
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-        const nameInput = document.getElementById("promotionName");
+        const startDateInput = document.getElementById("startDate");
+        const endDateInput = document.getElementById("endDate");
         const updateButton = document.getElementById("updateButton");
 
-        nameInput.addEventListener("input", function () {
-            if (nameInput.value.trim() === "") {
-                updateButton.disabled = true;
-            } else {
-                updateButton.disabled = false;
-            }
+        startDateInput.addEventListener("input", function () {
+            updateButton.disabled = startDateInput.value.trim() === "" && endDateInput.value.trim() === "";
         });
 
-        if (nameInput.value.trim() === "") {
+        if (startDateInput.value.trim() === "" && endDateInput.value.trim() === "") {
             updateButton.disabled = true;
         }
     });
