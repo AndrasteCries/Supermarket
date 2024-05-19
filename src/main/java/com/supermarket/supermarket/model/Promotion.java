@@ -3,7 +3,9 @@ package com.supermarket.supermarket.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @Entity
@@ -19,8 +21,11 @@ public class Promotion {
     private String name;
 
     @Column(name = "start_date", nullable = false)
-    private LocalDateTime startDate;
+    private LocalDate startDate;
 
     @Column(name = "end_date", nullable = false)
-    private LocalDateTime endDate;
+    private LocalDate endDate;
+
+    @OneToMany(mappedBy = "promotion")
+    private List<ProductPromotion> productPromotions;
 }

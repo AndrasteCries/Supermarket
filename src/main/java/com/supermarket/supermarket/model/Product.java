@@ -41,4 +41,7 @@ public class Product {
     @OneToMany(mappedBy = "product")
     private List<ProductInput> productInputs;
 
+    @OneToMany(mappedBy = "product")
+    private List<ProductPromotion> productPromotions;
+
 }

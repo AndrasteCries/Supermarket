@@ -21,13 +21,13 @@ public interface ProductService {
 
     void delete(Long id);
 
-    public Product findByName(String name);
+    Product findByName(String name);
 
-     List<ProductCategory> getAllCategories();
+    List<ProductCategory> getAllCategories();
 
-     List<Manufacturer> getAllManufacturers();
+    List<Manufacturer> getAllManufacturers();
 
-     List<Section> getAllSections();
+    List<Section> getAllSections();
 
      //todo add category table
 //     List<Product> findAllProductByCategory(String category);
