@@ -15,7 +15,13 @@ public interface WarehouseService {
 
     Warehouse getProductById(Long id);
 
+    Long getCountProductById(Long id);
+
     void addProductToWarehouse(Product product, LocalDate arriveDate, BigDecimal count);
+
+    void purchaseByProductId(Long id, long count);
+
+    List<Warehouse> getAllByProductId(Long id);
 
     //todo no need
 //    void updateProduct(Product product);

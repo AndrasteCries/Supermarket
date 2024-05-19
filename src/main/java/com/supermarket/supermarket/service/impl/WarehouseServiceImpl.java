@@ -5,6 +5,7 @@ import com.supermarket.supermarket.model.Warehouse;
 import com.supermarket.supermarket.repository.WarehouseRepository;
 import com.supermarket.supermarket.service.WarehouseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -31,6 +32,11 @@ public class WarehouseServiceImpl implements WarehouseService {
     }
 
     @Override
+    public Long getCountProductById(Long id) {
+        return warehouseProductRepository.getCountProductById(id);
+    }
+
+    @Override
     public void addProductToWarehouse(Product product, LocalDate arriveDate, BigDecimal count) {
         Warehouse existingProduct = warehouseProductRepository.findByProductIdAndExpiryDate(
                 product.getId(), arriveDate.plusDays(product.getExpirationDate().longValue()));
@@ -45,6 +51,31 @@ public class WarehouseServiceImpl implements WarehouseService {
             warehouse.setCount(count);
             warehouseProductRepository.save(warehouse);
         }
+    }
+
+    @Override
+    public void purchaseByProductId(Long id, long count) {
+        List<Warehouse> warehouseProducts = warehouseProductRepository.getAllByProductId(id);
+        long remainingCount = count;
+        if (!warehouseProducts.isEmpty()) {
+            for (Warehouse warehouse : warehouseProducts) {
+                if (remainingCount <= 0) {
+                    break;
+                }
+                long availableCount = warehouse.getCount().longValue();
+                if (availableCount > 0) {
+                    long purchaseCount = Math.min(availableCount, remainingCount);
+                    remainingCount -= purchaseCount;
+                    warehouse.setCount(BigDecimal.valueOf(availableCount - purchaseCount));
+                    warehouseProductRepository.save(warehouse);
+                }
+            }
+        }
+    }
+
+    @Override
+    public List<Warehouse> getAllByProductId(Long id) {
+        return warehouseProductRepository.getAllByProductId(id);
     }
 
     // todo no need
