@@ -10,6 +10,7 @@
         body {
             font-family: Arial, sans-serif;
         }
+
         .container {
             margin-top: 50px;
         }
@@ -64,17 +65,14 @@
 
             <form th:action="@{/promotions/product_promotions/create}" th:object="${productPromotion}" method="post" id="productForm">
                 <div class="mb-3">
-                    <label for="promotion" class="form-label">Promotion</label>
-                    <select class="form-select" id="promotion" th:field="*{promotion}" required>
-                        <option th:each="promotion : ${dpromotions}" th:value="${promotion.id}"
-                                th:text="${promotion.name}"></option>
-                    </select>
+                    <label for="promotionName" class="form-label">Promotion</label>
+                    <input type="text" class="form-control" id="promotionName" th:value="${promotion.name}" readonly/>
+                    <input type="hidden" th:field="*{promotion}" th:value="${promotion.id}"/>
                 </div>
                 <div class="mb-3">
                     <label for="product" class="form-label">Product</label>
                     <select class="form-select" id="product" th:field="*{product}" required>
-                        <option th:each="product : ${products}" th:value="${product.id}"
-                                th:text="${product.name}"></option>
+                        <option th:each="product : ${products}" th:value="${product.id}" th:text="${product.name}"></option>
                     </select>
                 </div>
                 <div class="mb-3">
@@ -84,6 +82,7 @@
                 <button type="submit" class="btn btn-success" id="addButton">Add Promotion</button>
             </form>
         </div>
+
         <!-- Back button -->
         <div>
             <a href="/promotions" class="btn btn-primary">Back to Promotions</a>

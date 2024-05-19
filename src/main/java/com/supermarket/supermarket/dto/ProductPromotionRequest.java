@@ -14,7 +14,7 @@ public class ProductPromotionRequest {
     @NotNull
     private Product product;
     @NotNull
-    private Promotion promotion;
+    private Long promotion;
     @NotNull
     private BigDecimal percent;
 

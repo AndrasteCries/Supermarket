@@ -7,6 +7,7 @@ import com.supermarket.supermarket.repository.ProductPromotionsRepository;
 import com.supermarket.supermarket.repository.ProductRepository;
 import com.supermarket.supermarket.repository.PromotionRepository;
 import com.supermarket.supermarket.service.ProductPromotionService;
+import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -33,6 +34,8 @@ public class ProductPromotionServiceImpl implements ProductPromotionService {
                 .orElseThrow(() -> new RuntimeException("Product not found"));
         Promotion promotion = promotionRepository.findById(productPromotion.getPromotion().getId())
                 .orElseThrow(() -> new RuntimeException("Promotion not found"));
+
+        checkIfManufacturerNameExists(product.getId(), promotion.getId());
 
         productPromotion.setProduct(product);
         productPromotion.setPromotion(promotion);
@@ -85,6 +88,12 @@ public class ProductPromotionServiceImpl implements ProductPromotionService {
     @Override
     public List<Promotion> getAllPromotion() {
         return promotionRepository.findAll();
+    }
+
+    private void checkIfManufacturerNameExists(final Long productId, final Long promotionId) {
+        if (productPromotionsRepository.existsByProductAndPromotion(productId, promotionId)) {
+            throw new EntityExistsException("ProductPromotion for: " + productId + promotionId + " already exists");
+        }
     }
 
 }

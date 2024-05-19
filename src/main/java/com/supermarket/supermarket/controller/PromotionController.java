@@ -44,17 +44,19 @@ public class PromotionController {
     @GetMapping("/{id}")
     public String getPromotion(@PathVariable Long id, Model model) {
         Promotion promotion = promotionService.findById(id);
+        ProductPromotionRequest productPromotionRequest = new ProductPromotionRequest();
+        productPromotionRequest.setPromotion(promotion.getId());
         model.addAttribute("promotion", promotion);
         model.addAttribute("products", promotionService.getAllProducts());
         model.addAttribute("promotions", productPromotionService.findAllByPromotion(id));
-        model.addAttribute("dpromotions", promotionService.getAll());
-        model.addAttribute("productPromotion", new ProductPromotionRequest());
+        model.addAttribute("productPromotion", productPromotionRequest);
         return "promotion/show";
     }
 
     @PostMapping("/product_promotions/create")
     public String createProductPromotion(@Valid @ModelAttribute("productPromotion") ProductPromotionRequest productPromotionRequest,
                                          BindingResult result) {
+        System.out.println(productPromotionRequest.getPromotion());
         if (result.hasErrors()) {
             System.out.println(result);
             return "redirect:/promotions";
@@ -62,12 +64,13 @@ public class PromotionController {
 
         ProductPromotion productPromotion = new ProductPromotion();
         productPromotion.setProduct(productPromotionRequest.getProduct());
-        productPromotion.setPromotion(productPromotionRequest.getPromotion());
+        productPromotion.setPromotion(promotionService.findById(productPromotionRequest.getPromotion()));
         productPromotion.setPercent(productPromotionRequest.getPercent());
 
         productPromotionService.create(productPromotion);
-        return "redirect:/promotions/" + productPromotionRequest.getPromotion().getId();
+        return "redirect:/promotions/" + productPromotionRequest.getPromotion();
     }
+
 
     @PostMapping("/create")
     public String createPromotion(@Valid @ModelAttribute("promotion") PromotionRequest promotionRequest,
