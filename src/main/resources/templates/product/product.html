@@ -83,11 +83,11 @@
                 </div>
                 <div class="mb-3">
                     <label for="productPrice" class="form-label">Price</label>
-                    <input type="number" class="form-control" id="productPrice" th:field="*{price}" step="any" required/>
+                    <input type="number" class="form-control" id="productPrice" th:field="*{price}" min="0" required/>
                 </div>
                 <div class="mb-3">
                     <label for="productExpirationDate" class="form-label">Expiration Date</label>
-                    <input type="number" class="form-control" id="productExpirationDate" th:field="*{expirationDate}" required/>
+                    <input type="number" class="form-control" id="productExpirationDate" th:field="*{expirationDate}" min="0" required/>
                 </div>
                 <!-- Dropdown for selecting category -->
                 <div class="mb-3">
