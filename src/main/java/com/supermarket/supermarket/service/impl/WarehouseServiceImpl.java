@@ -74,6 +74,21 @@ public class WarehouseServiceImpl implements WarehouseService {
     }
 
     @Override
+    public List<Warehouse> findAllWithPositiveCount() {
+        return warehouseProductRepository.findAllWithPositiveCount();
+    }
+
+    @Override
+    public List<Warehouse> findAllWithNonExpiredAndPositiveCount() {
+        return warehouseProductRepository.findAllWithNonExpiredAndPositiveCount();
+    }
+
+    @Override
+    public List<Warehouse> findAllWithMustExpired() {
+        return warehouseProductRepository.findAllWithNotExpiredAndPositiveCount();
+    }
+
+    @Override
     public List<Warehouse> getAllByProductId(Long id) {
         return warehouseProductRepository.getAllByProductId(id);
     }
@@ -88,6 +103,5 @@ public class WarehouseServiceImpl implements WarehouseService {
     public void deleteProduct(Long id) {
         warehouseProductRepository.deleteById(id);
     }
-
 
 }

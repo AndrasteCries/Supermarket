@@ -19,4 +19,20 @@ public interface WarehouseRepository extends JpaRepository<Warehouse, Long> {
 
     @Query("SELECT wp FROM Warehouse wp WHERE wp.count > 0 AND wp.product.id = :productId ORDER BY wp.expiryDate ASC")
     List<Warehouse> getAllByProductId(@Param("productId") Long id);
+
+    @Query("SELECT wp FROM Warehouse wp WHERE wp.count > 0")
+    List<Warehouse> findAllWithPositiveCount();
+
+    @Query("SELECT wp FROM Warehouse wp WHERE wp.count > 0 AND wp.expiryDate > CURRENT_DATE")
+    List<Warehouse> findAllWithNonExpiredAndPositiveCount();
+
+    @Query("SELECT wp FROM Warehouse wp WHERE wp.expiryDate < CURRENT_DATE")
+    List<Warehouse> findAllWithNotExpiredAndPositiveCount();
+
+//    @Query("UPDATE Warehouse wp SET wp.count = wp.count + :quantity WHERE wp.id = :productId")
+//    void addProductQuantity(@Param("productId") Integer productId, @Param("count") int quantity);
+//
+//    @Query("UPDATE Warehouse wp SET wp.count = wp.count - :quantity WHERE wp.id = :productId")
+//    void removeProductQuantity(@Param("productId") Integer productId, @Param("count") int quantity);
 }
+

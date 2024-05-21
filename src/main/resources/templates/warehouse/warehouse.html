@@ -14,6 +14,7 @@
 </head>
 <body>
 <div class="container mt-5">
+    <a href="/warehouse/util" class="btn btn-primary">Expire products</a>
     <h2>Warehouse</h2>
     <table class="table table-striped">
         <thead>
@@ -21,7 +22,6 @@
             <th>Name</th>
             <th>Count</th>
             <th>Expiration Date</th>
-            <th>Actions</th>
         </tr>
         </thead>
         <tbody>
@@ -30,9 +30,6 @@
             <td th:text="${product.product.name}"></td>
             <td th:text="${product.count}"></td>
             <td th:text="${product.expiryDate}"></td>
-            <td>
-                <a th:href="@{'/products/' + ${product.id}}" class="btn btn-primary btn-sm">View Product</a>
-            </td>
         </tr>
         </tbody>
     </table>

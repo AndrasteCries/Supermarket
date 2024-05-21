@@ -21,6 +21,12 @@ public interface WarehouseService {
 
     void purchaseByProductId(Long id, long count);
 
+    List<Warehouse> findAllWithPositiveCount();
+
+    List<Warehouse> findAllWithNonExpiredAndPositiveCount();
+
+    List<Warehouse> findAllWithMustExpired();
+
     List<Warehouse> getAllByProductId(Long id);
 
     //todo no need
