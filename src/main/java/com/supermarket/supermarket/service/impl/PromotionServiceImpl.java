@@ -1,9 +1,6 @@
 package com.supermarket.supermarket.service.impl;
 
-import com.supermarket.supermarket.model.Product;
-import com.supermarket.supermarket.model.ProductPromotion;
-import com.supermarket.supermarket.model.Promotion;
-import com.supermarket.supermarket.model.Supplier;
+import com.supermarket.supermarket.model.*;
 import com.supermarket.supermarket.repository.ProductRepository;
 import com.supermarket.supermarket.repository.PromotionRepository;
 import com.supermarket.supermarket.repository.SupplierRepository;
@@ -67,5 +64,9 @@ public class PromotionServiceImpl implements PromotionService {
         if (promotionRepository.existsByName(name)) {
             throw new EntityExistsException("Promotion with name: " + name + " already exists");
         }
+    }
+
+    public List<Promotion> findAllWithMustExpired() {
+        return promotionRepository.findAllNotExpired();
     }
 }

@@ -3,10 +3,7 @@ package com.supermarket.supermarket.controller;
 import com.supermarket.supermarket.dto.ProductPromotionRequest;
 import com.supermarket.supermarket.dto.PromotionRequest;
 import com.supermarket.supermarket.dto.SectionRequest;
-import com.supermarket.supermarket.model.Product;
-import com.supermarket.supermarket.model.ProductPromotion;
-import com.supermarket.supermarket.model.Promotion;
-import com.supermarket.supermarket.model.Section;
+import com.supermarket.supermarket.model.*;
 import com.supermarket.supermarket.service.ProductPromotionService;
 import com.supermarket.supermarket.service.ProductService;
 import com.supermarket.supermarket.service.PromotionService;
@@ -100,7 +97,7 @@ public class PromotionController {
     }
 
     @PostMapping("/update/{id}")
-    public String updateSection(@PathVariable Long id, @Valid @ModelAttribute("promotion")
+    public String updatePromotion(@PathVariable Long id, @Valid @ModelAttribute("promotion")
     PromotionRequest promotionRequest, BindingResult result, Model model) {
         if (result.hasErrors()) {
             model.addAttribute("promotion", promotionRequest);
@@ -113,8 +110,16 @@ public class PromotionController {
         return "redirect:/promotions";
     }
 
+    @GetMapping("/util")
+    public String getNeedToRemove(Model model){
+        List<Promotion> allProducts = promotionService.findAllWithMustExpired();
+
+        model.addAttribute("promotions", allProducts);
+        return "promotion/util";
+    }
+
     @DeleteMapping("/delete/{id}")
-    public String deleteSection(@PathVariable Long id) {
+    public String deletePromotion(@PathVariable Long id) {
         promotionService.delete(id);
         return "redirect:/promotions";
     }

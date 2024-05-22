@@ -26,6 +26,6 @@ public class Promotion {
     @Column(name = "end_date", nullable = false)
     private LocalDate endDate;
 
-    @OneToMany(mappedBy = "promotion")
+    @OneToMany(mappedBy = "promotion", cascade = CascadeType.REMOVE)
     private List<ProductPromotion> productPromotions;
 }

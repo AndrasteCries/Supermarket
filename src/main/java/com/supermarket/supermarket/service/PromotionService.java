@@ -2,6 +2,7 @@ package com.supermarket.supermarket.service;
 
 import com.supermarket.supermarket.model.Product;
 import com.supermarket.supermarket.model.Promotion;
+import com.supermarket.supermarket.model.Warehouse;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -22,4 +23,6 @@ public interface PromotionService {
     void delete(Long id);
 
     List<Product> getAllProducts();
+
+    List<Promotion> findAllWithMustExpired();
 }
