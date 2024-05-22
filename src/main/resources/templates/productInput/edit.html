@@ -26,7 +26,7 @@
         <!-- Edit Product Input Form -->
         <div class="col-md-6 offset-md-3">
             <h2>Edit Product Input</h2>
-            <form th:action="@{'/inputs/update/' + ${productId}}" th:object="${productInput}" method="post">\
+            <form th:action="@{'/inputs/update/' + ${productId}}" th:object="${productInput}" method="post">
                 <div class="mb-3">
                     <label for="product" class="form-label">Product</label>
                     <select class="form-select" id="product" th:field="*{product}" required>

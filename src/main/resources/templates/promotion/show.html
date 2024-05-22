@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Montserrat', sans-serif;
         }
 
         .container {
@@ -22,15 +22,14 @@
         <div class="col-md-7">
             <h1>Promotion Details</h1>
 
-            <!-- Display promotion details -->
             <div>
                 <h3>Name: <span th:text="${promotion.name}"></span></h3>
                 <p>Start Date: <span th:text="${#temporals.format(promotion.startDate, 'dd-MM-yyyy')}"></span></p>
                 <p>End Date: <span th:text="${#temporals.format(promotion.endDate, 'dd-MM-yyyy')}"></span></p>
             </div>
 
-            <!-- Display products associated with the promotion -->
             <div>
+                <br/>
                 <h2>Products in Promotion</h2>
                 <table class="table">
                     <thead>
@@ -38,7 +37,7 @@
                         <th>Name</th>
                         <th>Price</th>
                         <th>Percent</th>
-                        <th>PPrice</th>
+                        <th>Price</th>
                         <th>Actions</th>
                     </tr>
                     </thead>
@@ -63,7 +62,8 @@
         <div class="col-md-5">
             <h2>New Product Promotion</h2>
 
-            <form th:action="@{/promotions/product_promotions/create}" th:object="${productPromotion}" method="post" id="productForm">
+            <form th:action="@{/promotions/product_promotions/create}" th:object="${productPromotion}" method="post"
+                  id="productForm">
                 <div class="mb-3">
                     <label for="promotionName" class="form-label">Promotion</label>
                     <input type="text" class="form-control" id="promotionName" th:value="${promotion.name}" readonly/>
@@ -72,12 +72,14 @@
                 <div class="mb-3">
                     <label for="product" class="form-label">Product</label>
                     <select class="form-select" id="product" th:field="*{product}" required>
-                        <option th:each="product : ${products}" th:value="${product.id}" th:text="${product.name}"></option>
+                        <option th:each="product : ${products}" th:value="${product.id}"
+                                th:text="${product.name}"></option>
                     </select>
                 </div>
                 <div class="mb-3">
                     <label for="percent" class="form-label">Percent</label>
-                    <input type="number" class="form-control" id="percent" th:field="*{percent}" min="0" max="100" required/>
+                    <input type="number" class="form-control" id="percent" th:field="*{percent}" min="0" max="100"
+                           required/>
                 </div>
                 <button type="submit" class="btn btn-success" id="addButton">Add Promotion</button>
             </form>

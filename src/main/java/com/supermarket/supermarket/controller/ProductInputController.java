@@ -98,6 +98,6 @@ public class ProductInputController  {
     @DeleteMapping("/delete/{id}")
     public String deleteProductInputs(@PathVariable Long id) {
         productInputSevice.delete(id);
-        return "redirect:/productInputs";
+        return "redirect:/inputs";
     }
 }
