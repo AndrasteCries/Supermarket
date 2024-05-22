@@ -106,12 +106,14 @@ public class PromotionController {
         }
         final Promotion promotion = promotionService.findById(id);
         promotion.setName(promotionRequest.getName());
+        promotion.setStartDate(promotionRequest.getStartDate());
+        promotion.setEndDate(promotionRequest.getEndDate());
         promotionService.update(promotion);
         return "redirect:/promotions";
     }
 
     @GetMapping("/util")
-    public String getNeedToRemove(Model model){
+    public String getNeedToRemove(Model model) {
         List<Promotion> allProducts = promotionService.findAllWithMustExpired();
 
         model.addAttribute("promotions", allProducts);
