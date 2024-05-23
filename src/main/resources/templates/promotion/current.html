@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Current Promotions</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .container {
+            margin-top: 50px;
+        }
+
+        .promotion-table {
+            margin-bottom: 50px;
+        }
+
+        .promotion-header {
+            background-color: #f8f9fa;
+            padding: 10px;
+            border: 1px solid #dee2e6;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <!-- Back Button -->
+        <div class="col-md-12 mb-3">
+            <a href="/config" class="btn btn-secondary">Back</a>
+        </div>
+    </div>
+    <h1><b>Current Promotions</b></h1>
+
+    <!-- Loop through promotions and display each in a separate table -->
+    <div th:each="promotion : ${promotions}">
+        <div class="promotion-header">
+            <h2 th:text="${promotion.name}">Promotion Name</h2>
+            <p><b>Start Date:</b> <span th:text="${#temporals.format(promotion.startDate, 'dd-MM-yyyy')}"></span></p>
+            <p><b>End Date:</b> <span th:text="${#temporals.format(promotion.endDate, 'dd-MM-yyyy')}"></span></p>
+        </div>
+        <table class="table table-bordered promotion-table">
+            <thead>
+            <tr>
+                <th>Product ID</th>
+                <th>Product Name</th>
+                <th>Product Price</th>
+                <th>Promotion Percent</th>
+                <th>New price</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="productPromotion : ${promotion.productPromotions}">
+                <td th:text="${productPromotion.product.id}"></td>
+                <td th:text="${productPromotion.product.name}"></td>
+                <td th:text="${productPromotion.product.price}"></td>
+                <td th:text="${productPromotion.percent}"></td>
+                <td th:text="${productPromotion.product.price * productPromotion.percent / 100}"></td>
+            </tr>
+
+            </tbody>
+        </table>
+    </div>
+</div>
+<!-- Bootstrap JS (optional) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

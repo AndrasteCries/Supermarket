@@ -38,6 +38,13 @@ public class PromotionController {
         return "promotion/promotion";
     }
 
+    @GetMapping("/current")
+    public String getCurrentPromotion(Model model) {
+        List<Promotion> promotions = promotionService.getAll();
+        model.addAttribute("promotions", promotions);
+        return "promotion/current";
+    }
+
     @GetMapping("/{id}")
     public String getPromotion(@PathVariable Long id, Model model) {
         Promotion promotion = promotionService.findById(id);
