@@ -1,22 +1,33 @@
 package com.supermarket.supermarket.service;
 
+import com.supermarket.supermarket.dto.ProductRequest;
+import com.supermarket.supermarket.model.Manufacturer;
 import com.supermarket.supermarket.model.Product;
+import com.supermarket.supermarket.model.ProductCategory;
+import com.supermarket.supermarket.model.Section;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public interface ProductService {
-//     List<Product> findAllProduct();
 
-     //todo
-//     Product findByName(String name);
+    Product create(ProductRequest productRequest);
 
-     Product saveProduct(Product product);
-     Product updateProduct(Product product);
+    List<Product> getAll();
 
-     //todo or id (ya ne znauy kak pravilno)
-     void deleteProduct(String name);
+    Product getById(Long id);
+    Product update(Long productId, ProductRequest productRequest);
+
+    void delete(Long id);
+
+    Product findByName(String name);
+
+    List<ProductCategory> getAllCategories();
+
+    List<Manufacturer> getAllManufacturers();
+
+    List<Section> getAllSections();
 
      //todo add category table
 //     List<Product> findAllProductByCategory(String category);

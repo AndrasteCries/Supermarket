@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suppliers</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+        }
+    </style>
+</head>
+<body>
+<div class="container mt-5">
+    <div class="row">
+        <!-- Back Button -->
+        <div class="col-md-12 mb-3">
+            <a href="/config" class="btn btn-secondary">Back</a>
+        </div>
+    </div>
+    <div class="row">
+        <!-- Suppliers List -->
+        <div class="col-md-6">
+            <h1><b>Suppliers</b></h1>
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <!-- Loop through each supplier and display its information -->
+                <th:block th:each="supplier : ${suppliers}">
+                    <tr>
+                        <td th:text="${supplier.id}"></td>
+                        <td th:text="${supplier.name}"></td>
+                        <td>
+                            <!-- Link to edit a supplier -->
+                            <a class="btn btn-warning" th:href="@{/suppliers/edit/{id}(id=${supplier.id})}">Edit</a>
+                            <!-- Form to delete a supplier -->
+                            <form th:action="@{/suppliers/delete/{id}(id=${supplier.id})}" method="post"
+                                  style="display: inline;">
+                                <input type="hidden" name="_method" value="DELETE"/>
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                </th:block>
+                </tbody>
+            </table>
+        </div>
+        <!-- Add Supplier Form -->
+        <div class="col-md-6">
+            <h2>New Supplier</h2>
+            <form th:action="@{/suppliers/create}" th:object="${supplier}" method="post" id="supplierForm">
+                <div class="mb-3">
+                    <label for="supplierName" class="form-label">Supplier Name</label>
+                    <input type="text" class="form-control" id="supplierName" th:field="*{name}" required/>
+                </div>
+                <button type="submit" class="btn btn-success" id="addButton" disabled>Add Supplier</button>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- Bootstrap JS (optional) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Custom JS -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const nameInput = document.getElementById("supplierName");
+        const addButton = document.getElementById("addButton");
+
+        nameInput.addEventListener("input", function () {
+            if (nameInput.value.trim() === "") {
+                addButton.disabled = true;
+            } else {
+                addButton.disabled = false;
+            }
+        });
+
+        // Initial check to disable button on page load if the input is empty
+        if (nameInput.value.trim() === "") {
+            addButton.disabled = true;
+        }
+    });
+</script>
+</body>
+</html>
